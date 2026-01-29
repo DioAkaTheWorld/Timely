@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import api from '../api/index.js'
 
 export const useAuthStore = defineStore('auth', {
     state(){
@@ -20,19 +21,23 @@ export const useAuthStore = defineStore('auth', {
             this.apikey = key;
         },
 
-        async loadProfile(){
-            if (this.apikey != null) {
-                try {
-                    const response = await api.get('/api/profile');
-                    this.user = response.data;
-                    this.authenticated = true;
-                } catch (error) {
-                    this.apikey = null
-                    this.user = null
-                    this.authenticated = false
+        async loadProfile() {
+            if (!this.apikey) return
+
+            try {
+                const response = await api.get('/api/profile', {
+                headers: {
+                    Authorization: `key=${this.apikey}`
                 }
-            } else {
-                return;
+                })
+
+                this.user = response.data
+                this.authenticated = true
+            } catch (error) {
+                console.error('Profile error:', error)
+                this.apikey = null
+                this.user = null
+                this.authenticated = false
             }
         },
 
