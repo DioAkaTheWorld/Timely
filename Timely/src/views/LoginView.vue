@@ -30,14 +30,9 @@
 
     // creation d'un nouveau compte
     async function register() {
-    registerError.value = null
+        registerError.value = null
         try {
-            const response = await api.post('/api/apikeys', {
-                name: name.value,
-                email: email.value
-            })
-
-            auth.setApiKey(response.data.key)
+            await auth.register(name.value, email.value)
             router.push('/home')
         } catch (e) {
             registerError.value = 'Impossible de créer le compte'

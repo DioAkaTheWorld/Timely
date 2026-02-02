@@ -2,12 +2,19 @@
     import { useAuthStore } from '../stores/auth';
     import { useRouter } from 'vue-router';
     import { ref } from 'vue'
+    import { onMounted } from 'vue';
 
     const auth = useAuthStore();
     const router = useRouter();
 
-    const name = ref('')
-    const email = ref('')
+    const name = ref(auth.user?.name || '')
+    const email = ref(auth.user?.email || '')
+
+    onMounted(async () => {
+        if (!auth.user) {
+            await auth.loadProfile()
+        }
+    })
 
     function retour() {
         router.push('/home');
@@ -17,21 +24,21 @@
         auth.logout();
         router.push('/login');
     }
+
     async function updateProfile() {
-        try {
-            const response = await api.put('/api/profile', {
-                name: name.value,
-                email: email.value
-            })
-
-            auth.setUser(response.data)
-        } catch (error) {
-            console.error('Erreur update profile', error)
-                throw error
+        if (!name.value || !email.value) {
+            alert('Nom et email obligatoires')
+            return
         }
-    } 
 
-
+        try {
+            await auth.updateProfile(name.value, email.value)
+            alert('Profil mis à jour')
+        } catch (error) {
+            alert('Erreur lors de la mise à jour')
+        }
+    }
+ 
 </script>
 
 <template>
@@ -41,13 +48,15 @@
         </button>
         <div class="profile">
             <h2>Profile</h2>
-            <p>
-                <strong>Connecté en tant que :</strong><br>
-                <strong>Nom : </strong>{{ auth.user.name }} <br>
-                <strong>Email : </strong>{{ auth.user.email }} <br>
-                <strong>API key : </strong>{{ auth.apikey }}
-            </p>
 
+            <div v-if="auth.user">
+                <p>
+                    <strong>Connecté en tant que :</strong><br>
+                    <strong>Nom : </strong>{{ auth.user.name }} <br>
+                    <strong>Email : </strong>{{ auth.user.email }} <br>
+                    <strong>API key : </strong>{{ auth.apikey }}
+                </p>
+            </div>
             <h2>Modifier le profil</h2>
             <strong>Nom</strong>
             <input 

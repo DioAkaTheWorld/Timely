@@ -51,6 +51,29 @@ export const useAuthStore = defineStore('auth', {
             this.authenticated = false; 
         },
 
+        async updateProfile(name, email) {
+            const response = await api.put('/api/profile', {
+                name,
+                email
+            },{
+                headers: {
+                    Authorization: `key=${this.apikey}`
+                }
+            })
+
+            this.user = response.data
+        },
+
+        async register(name, email) {
+            const response = await api.post('/api/apikeys', {
+                name,
+                email
+            })
+            this.setApiKey(response.data.key)
+            await this.loadProfile()
+        },
+
+
     },
     persist: {
         enabled: true,
