@@ -21,14 +21,18 @@ export const useAuthStore = defineStore('auth', {
             this.apikey = key;
         },
 
+        setUser(user) {
+            this.user = user;
+        },
+
         async loadProfile() {
             if (!this.apikey) return
 
             try {
                 const response = await api.get('/api/profile', {
-                headers: {
-                    Authorization: `key=${this.apikey}`
-                }
+                    headers: {
+                        Authorization: `key=${this.apikey}`
+                    }
                 })
 
                 this.user = response.data
@@ -45,7 +49,8 @@ export const useAuthStore = defineStore('auth', {
             this.apikey = null;
             this.user = null;   
             this.authenticated = false; 
-        }
+        },
+
     },
     persist: {
         enabled: true,
