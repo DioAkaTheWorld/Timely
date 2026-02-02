@@ -48,7 +48,7 @@
 .btn {
   padding: 10px;
   font-size: 0.95rem;
-  background: #4a90e2;
+  background: #42474d;
   color: white;
   border: none;
   border-radius: 4px;
@@ -56,7 +56,7 @@
 }
 
 .btn:hover {
-  background: #357abd;
+  background: #0a0c0e;
 }
 
 .logout-btn {
@@ -105,4 +105,46 @@
 .home-loading {
   font-size: 1.1rem;
   color: #666;
+}
+
+/* settings */
+
+.settings-conatiner {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 24px;
+  font-family: Arial, sans-serif;
+}
+
+.settings-conatiner h1 {
+  margin-bottom: 24px;
+}
+
+.profile,
+.projet {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.profile h2,
+.projet h2 {
+  margin-bottom: 16px;
+}
+
+.profile p {
+  background: #fff;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.profile input {
+  width: 100%;
+  padding: 8px 10px;
+  margin: 6px 0 12px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }

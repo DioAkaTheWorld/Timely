@@ -43,9 +43,10 @@
 
 <template>
     <div class="settings-conatiner">
-        <button @click="retour">
+        <button class="btn" @click="retour">
             Retour
         </button>
+        <h1>Paramètres généraux</h1>
         <div class="profile">
             <h2>Profile</h2>
 
@@ -70,16 +71,20 @@
             type="text"
             placeholder="email"
             v-model="email"
-            > <br>
+            > <br><br>
 
-            <button @click="updateProfile">
+            <button class="btn" @click="updateProfile">
                 Enregistrer
-            </button> <br>
+            </button> <br><br>
 
 
             <button class="btn logout-btn" @click="logout">
                 Se déconnecter
             </button>
+        </div>
+
+        <div class="projet">
+            <h2>Mes Projets</h2>
         </div>
     </div>
 </template>

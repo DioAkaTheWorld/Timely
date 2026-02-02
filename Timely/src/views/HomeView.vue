@@ -15,7 +15,7 @@
       <h1 class="home-title">Home</h1>
 
       <div>
-        <button @click="param">
+        <button class="btn" @click="param">
           Paramètres
         </button>
       </div>
@@ -29,7 +29,7 @@
       <div v-else class="home-loading">
         <p>Chargement du profil...</p>
 
-        <button @click="login">
+        <button class="btn" @click="login">
           Se connceté / créer un compte
         </button>
       </div>
