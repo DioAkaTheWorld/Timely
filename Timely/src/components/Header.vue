@@ -29,7 +29,7 @@
             </button>
 
             <div v-if="auth.user">
-                <button class="btn logout-btn" @click="logout">
+                <button class="btn btn-red" @click="logout">
                     Se déconnecter
                 </button>
             </div>

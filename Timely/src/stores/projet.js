@@ -57,6 +57,30 @@ export const useProjetStore = defineStore('projet', {
             } catch (error) {
                 console.error('probleme lors de la suppression', error)
             }
+        },
+
+        async modifierProjet(id, name, description){
+            const auth = useAuthStore();
+            try {
+                const response = await api.put(`/api/projects/${id}`, {
+                    name,
+                    description, 
+                },{
+                    headers: {
+                        Authorization: `key=${auth.apikey}`
+                    }
+                    
+                })
+
+                const projetMisAJour = response.data;
+
+                const index = this.projets.findIndex(p => p.id === id);
+                if (index !== -1) {
+                    this.projets[index] = projetMisAJour;
+                }
+            } catch (error) {
+                console.error('probleme lors de la modification', error)
+            }
         }
     },
 

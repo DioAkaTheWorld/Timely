@@ -9,10 +9,18 @@
     const router = useRouter();
     const projets = useProjetStore();
 
+    // user
     const nameUser = ref(auth.user?.name || '')
     const email = ref(auth.user?.email || '')
+
+    // projet
     const nameProjet = ref('');
     const description = ref('');
+
+    // edit projet
+    const projetEnEdition = ref(null);
+    const editName = ref('');
+    const editDescription = ref('');
 
     onMounted(async () => {
         if (!auth.user) {
@@ -46,7 +54,17 @@
 
     function creerProjet() {
         projets.ajouterProjet(nameProjet.value, description.value);
-        alert('projet créer');
+    }
+
+    function modifier(projet) {
+        projetEnEdition.value = projet.id;
+        editName.value = projet.name;
+        editDescription.value = projet.description;
+    }
+
+    async function sauvegarderModification(id) {
+        await projets.modifierProjet(id, editName.value, editDescription.value);
+        projetEnEdition.value = null;
     }
  
 </script>
@@ -92,26 +110,55 @@
             <div>
                 <h2>Formulaire création de projets</h2>
                 <input 
-                class="input"
-                type="text"
-                placeholder="nom"
-                v-model="nameProjet"
+                    class="input"
+                    type="text"
+                    placeholder="nom"
+                    v-model="nameProjet"
                 > <br>
                 <input 
-                class="input"
-                type="text"
-                placeholder="description"
-                v-model="description"
+                    class="input"
+                    type="text"
+                    placeholder="description"
+                    v-model="description"
                 > <br> <br>
                 <button @click="creerProjet" class="btn">Créer</button>
             </div>
         </div>
+
         <div class="projet">
             <h2>Mes Projets</h2>
+
             <div v-for="projet in projets.projets" :key="projet.id" class="project-card">
-                <h2>{{ projet.name }}</h2>
-                <p><strong>Description : </strong></p>{{ projet.description }} <br><br>
-                <button @click="desactiver(projet.id)" class="logout-btn">Supprimer</button>
+
+                <div v-if="projetEnEdition !== projet.id">
+                    <h2>{{ projet.name }}</h2>
+                    <p><strong>Description : </strong></p>{{ projet.description }} <br><br>
+                    <button @click="desactiver(projet.id)" class="btn btn-red">Supprimer</button>
+                    <button @click="modifier(projet)" class="btn btn-green">Modifier</button>
+                </div>
+
+                <div v-else class="edit-card">
+                    <input
+                        type="text"
+                        v-model="editName"
+                        placeholder="Nom du projet"
+                        class="input"
+                    />
+                    <input
+                        type="text"
+                        v-model="editDescription"
+                        placeholder="Description"
+                        class="input"
+                    />
+
+                    <button @click="sauvegarderModification(projet.id)" class="btn btn-green">
+                        Enregistrer
+                    </button>
+                    <button @click="projetEnEdition = null" class="btn btn-red">
+                        Annuler
+                    </button>
+
+                </div>
             </div>
         </div>
     </div>

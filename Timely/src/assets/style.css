@@ -59,6 +59,19 @@
   background: #0a0c0e;
 }
 
+.btn-red{
+  background-color: rgb(227, 30, 30);
+}
+.btn-red:hover {
+  background-color: darkred;
+}
+
+.btn-green{
+  background-color: rgb(5, 109, 5);
+}
+.btn-green:hover {
+  background-color: rgb(5, 61, 5);
+}
 
 /* ===== ERREURS ===== */
 
@@ -193,19 +206,6 @@
   border-radius: 20%;
 }
 
-.logout-btn {
-  background-color: rgb(227, 30, 30);
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.logout-btn:hover {
-  background-color: darkred;
-}
-
 .right {
   display: flex;
   align-items: center;
@@ -216,3 +216,16 @@
   margin-top: 90px;
   margin-left: 10px;
 }
+
+.edit-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    padding: 16px;
+    margin-top: 10px;
+    border-radius: 10px;
+
+    box-shadow: 0 4px 10px rgba(177, 172, 172, 0.4);
+}
+
