@@ -47,10 +47,5 @@
           Se connceté / créer un compte
         </button>
       </div>
-
-      <div class="home-card">
-        <h2>Mes Projets</h2>
-        {{ projets.projets }}
-      </div>
     </div>
 </template>

@@ -42,8 +42,30 @@ export const useProjetStore = defineStore('projet', {
             }catch (error) {
                 console.error("error");
             }
-        }   
-    }
+        },
+
+        async desactiverProjet(id){
+            const auth = useAuthStore();
+            try {
+                const response = await api.patch(`/api/projects/${id}/disable`, {},
+                {
+                    headers: {
+                        Authorization: `key=${auth.apikey}`
+                    }
+                }) 
+                this.projets = this.projets.filter(projet => projet.id !== id);
+            } catch (error) {
+                console.error('probleme lors de la suppression', error)
+            }
+        }
+    },
+
+    persist: {
+        enabled: true,
+        strategies: [
+            {storage: localStorage, paths: ['projets'] }
+        ]
+    } 
 
 
 })

@@ -3,9 +3,11 @@
     import { useRouter } from 'vue-router';
     import { ref } from 'vue'
     import { onMounted } from 'vue';
+    import { useProjetStore } from '@/stores/projet';
 
     const auth = useAuthStore();
     const router = useRouter();
+    const projets = useProjetStore();
 
     const name = ref(auth.user?.name || '')
     const email = ref(auth.user?.email || '')
@@ -14,6 +16,8 @@
         if (!auth.user) {
             await auth.loadProfile()
         }
+
+        await projets.loadProject(); 
     })
 
     function retour() {
@@ -32,6 +36,10 @@
         } catch (error) {
             alert('Erreur lors de la mise à jour')
         }
+    }
+
+    function desactiver(id){
+        projets.desactiverProjet(id);
     }
  
 </script>
@@ -75,6 +83,11 @@
 
         <div class="projet">
             <h2>Mes Projets</h2>
+            <div v-for="projet in projets.projets" :key="projet.id" class="project-card">
+                <h2>{{ projet.name }}</h2>
+                <p><strong>Description : </strong></p>{{ projet.description }} <br><br>
+                <button @click="desactiver(projet.id)" class="logout-btn">Supprimer</button>
+            </div>
         </div>
     </div>
 </template>
