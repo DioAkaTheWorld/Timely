@@ -2,14 +2,9 @@
   import { useAuthStore } from '../stores/auth';
   import { useRouter } from 'vue-router';
   import { ref } from 'vue';
-  import { useProjetStore } from '@/stores/projet';
   
   const auth = useAuthStore();
   const router = useRouter();
-  const projets = useProjetStore();
-
-  const name = ref('');
-  const description = ref('');
 
   function login(){
     router.push('/login');
@@ -26,7 +21,7 @@
         <p>Chargement du profil...</p>
 
         <button class="btn" @click="login">
-          Se connceté / créer un compte
+          Se connceter / créer un compte
         </button>
       </div>
     </div>

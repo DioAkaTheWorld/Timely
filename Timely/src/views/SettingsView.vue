@@ -89,16 +89,16 @@
             <h2>Modifier le profil</h2>
             <strong>Nom</strong>
             <input 
-            type="text"
-            placeholder="name"
-            v-model="nameUser"
+                type="text"
+                placeholder="name"
+                v-model="nameUser"
             > <br>
 
             <strong>Email</strong>
             <input 
-            type="text"
-            placeholder="email"
-            v-model="email"
+                type="text"
+                placeholder="email"
+                v-model="email"
             > <br><br>
 
             <button class="btn" @click="updateProfile">
