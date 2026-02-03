@@ -2,9 +2,10 @@
     import { ref } from 'vue'
     import { useAuthStore } from '../stores/auth';
     import { useRouter } from 'vue-router'
-    import api  from '../api/index.js' 
+    import { useProjetStore } from '@/stores/projet';
 
     const auth = useAuthStore();
+    const projets = useProjetStore();
     const router = useRouter();
     
     // apikey
@@ -23,6 +24,7 @@
             auth.setApiKey(apiKeyInput.value)
             await auth.loadProfile()
             router.push('/home')
+            projets.loadProject()
         } catch (e) {
             apiKeyError.value = 'Clé API invalide'
         }
