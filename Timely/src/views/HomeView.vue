@@ -5,21 +5,15 @@
   const auth = useAuthStore();
   const router = useRouter();
 
-  function param() {
-    router.push('/settings')
+  function login(){
+    router.push('/login');
   }
+
 
 </script>
 <template>
   <div class="home-container">
       <h1 class="home-title">Home</h1>
-
-      <div>
-        <button class="btn" @click="param">
-          Paramètres
-        </button>
-      </div>
-
       <div v-if="auth.user" class="home-card">
         <p>
           tu es bien connecté

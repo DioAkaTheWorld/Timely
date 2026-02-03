@@ -20,11 +20,6 @@
         router.push('/home');
     }
   
-    function logout() {
-        auth.logout();
-        router.push('/login');
-    }
-
     async function updateProfile() {
         if (!name.value || !email.value) {
             alert('Nom et email obligatoires')
@@ -42,10 +37,10 @@
 </script>
 
 <template>
+    <button class="btn retour" @click="retour">
+        Retour
+    </button>
     <div class="settings-conatiner">
-        <button class="btn" @click="retour">
-            Retour
-        </button>
         <h1>Paramètres généraux</h1>
         <div class="profile">
             <h2>Profile</h2>
@@ -76,11 +71,6 @@
             <button class="btn" @click="updateProfile">
                 Enregistrer
             </button> <br><br>
-
-
-            <button class="btn logout-btn" @click="logout">
-                Se déconnecter
-            </button>
         </div>
 
         <div class="projet">
