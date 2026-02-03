@@ -20,7 +20,7 @@ export const useProjetStore = defineStore('projet', {
                     }
                 })
 
-                this.projets = response.data;
+                this.projets = response.data.filter(projet => projet.is_enabled === 1);;
             } catch (error) {
                 console.error('vous ne semblez pas avoir de projet pour le moment')
             }
@@ -38,7 +38,7 @@ export const useProjetStore = defineStore('projet', {
                     }
                 })
 
-                this.projets.push({name, description});
+                this.projets.push(response.data);
             }catch (error) {
                 console.error("error");
             }

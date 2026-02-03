@@ -9,8 +9,10 @@
     const router = useRouter();
     const projets = useProjetStore();
 
-    const name = ref(auth.user?.name || '')
+    const nameUser = ref(auth.user?.name || '')
     const email = ref(auth.user?.email || '')
+    const nameProjet = ref('');
+    const description = ref('');
 
     onMounted(async () => {
         if (!auth.user) {
@@ -31,7 +33,7 @@
         }
 
         try {
-            await auth.updateProfile(name.value, email.value)
+            await auth.updateProfile(nameUser.value, email.value)
             alert('Profil mis à jour')
         } catch (error) {
             alert('Erreur lors de la mise à jour')
@@ -40,6 +42,11 @@
 
     function desactiver(id){
         projets.desactiverProjet(id);
+    }
+
+    function creerProjet() {
+        projets.ajouterProjet(nameProjet.value, description.value);
+        alert('projet créer');
     }
  
 </script>
@@ -66,7 +73,7 @@
             <input 
             type="text"
             placeholder="name"
-            v-model="name"
+            v-model="nameUser"
             > <br>
 
             <strong>Email</strong>
@@ -81,6 +88,24 @@
             </button> <br><br>
         </div>
 
+        <div class="projet">
+            <div>
+                <h2>Formulaire création de projets</h2>
+                <input 
+                class="input"
+                type="text"
+                placeholder="nom"
+                v-model="nameProjet"
+                > <br>
+                <input 
+                class="input"
+                type="text"
+                placeholder="description"
+                v-model="description"
+                > <br> <br>
+                <button @click="creerProjet" class="btn">Créer</button>
+            </div>
+        </div>
         <div class="projet">
             <h2>Mes Projets</h2>
             <div v-for="projet in projets.projets" :key="projet.id" class="project-card">
