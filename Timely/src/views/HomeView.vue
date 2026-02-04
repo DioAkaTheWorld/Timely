@@ -18,7 +18,7 @@
       </div>
 
       <div v-else class="home-loading">
-        <p>Chargement du profil...</p>
+        <p>Veuillez vous connecter ou créer un compte</p>
 
         <button class="btn" @click="login">
           Se connceter / créer un compte

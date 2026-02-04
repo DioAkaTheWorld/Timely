@@ -10,34 +10,30 @@
     
     // apikey
     const apiKeyInput = ref('')
-    const apiKeyError = ref(null)
 
     // creation de compte 
     const name = ref('')
     const email = ref('')
-    const registerError = ref(null)
 
     // connection apikey deja existante 
     async function loginWithApiKey() {
-    apiKeyError.value = null
         try {
             auth.setApiKey(apiKeyInput.value)
             await auth.loadProfile()
             router.push('/home')
             projets.loadProject()
         } catch (e) {
-            apiKeyError.value = 'Clé API invalide'
+            console.error('Clé API invalide', error);
         }
     }
 
     // creation d'un nouveau compte
     async function register() {
-        registerError.value = null
         try {
             await auth.register(name.value, email.value)
             router.push('/home')
         } catch (e) {
-            registerError.value = 'Impossible de créer le compte'
+            console.error('Impossible de créer le compte', error)
         }
     }
 
@@ -60,9 +56,6 @@
                 Se connecter
             </button>
 
-            <p v-if="apiKeyError" class="error">
-                {{ apiKeyError }}
-            </p>
         </div>
 
         <div class="login-card">
@@ -86,9 +79,6 @@
                 Créer un compte
             </button>
 
-            <p v-if="registerError" class="error">
-                {{ registerError }}
-            </p>
         </div>
     </div>
 </template>

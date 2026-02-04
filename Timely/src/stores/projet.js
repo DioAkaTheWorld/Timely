@@ -11,11 +11,15 @@ export const useProjetStore = defineStore('projet', {
     },
 
     getters: {
+        // projet actifs
         actifs: (state) => state.projets.filter(p => p.is_enabled === 1),
+        // projets desactiver
         desactiver: (state) => state.projets.filter(p => p.is_enabled !== 1),
     },
 
     actions: {
+
+        // charge les projets
         async loadProject(){
             const auth = useAuthStore();
             try {
@@ -30,6 +34,7 @@ export const useProjetStore = defineStore('projet', {
             }
         },
 
+        // cree un projet
         async creerProjet(name, description) {
             const auth = useAuthStore();
             try {
@@ -49,6 +54,7 @@ export const useProjetStore = defineStore('projet', {
             }
         },
 
+        // desactive un projet
         async desactiverProjet(id){
             const auth = useAuthStore();
             try {
@@ -65,6 +71,7 @@ export const useProjetStore = defineStore('projet', {
             }
         },
 
+        //reactive un projet
         async reactiverProjet(id){
             const auth = useAuthStore();
             try {
@@ -80,6 +87,7 @@ export const useProjetStore = defineStore('projet', {
             }
         },
 
+        // modifie un projet
         async modifierProjet(id, name, description){
             const auth = useAuthStore();
             try {
@@ -92,9 +100,8 @@ export const useProjetStore = defineStore('projet', {
                     }
                     
                 })
-
                 const projetMisAJour = response.data;
-
+                projetMisAJour.is_enabled = 1;
                 const index = this.projets.findIndex(p => p.id === id);
                 if (index !== -1) {
                     this.projets[index] = projetMisAJour;
@@ -109,7 +116,7 @@ export const useProjetStore = defineStore('projet', {
     persist: {
         enabled: true,
         strategies: [
-            {storage: localStorage, paths: ['projets', 'projetSuppr'] }
+            {storage: localStorage, paths: ['projets'] }
         ]
     } 
 

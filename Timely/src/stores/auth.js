@@ -11,20 +11,25 @@ export const useAuthStore = defineStore('auth', {
     },
 
     getters: {
+        // getter user authentifié
         isAuthenticated(state) {
             return state.authenticated;
         }
     },
 
     actions: {
+
+        // setter apikey
         setApiKey(key) {
             this.apikey = key;
         },
 
+        // setter user
         setUser(user) {
             this.user = user;
         },
 
+        //charge le profil
         async loadProfile() {
             if (!this.apikey) return
 
@@ -45,12 +50,14 @@ export const useAuthStore = defineStore('auth', {
             }
         },
 
+        // deconnecte l'utilisateur
         logout(){
             this.apikey = null;
             this.user = null;   
             this.authenticated = false; 
         },
 
+        // modifie le profil
         async updateProfile(name, email) {
             const response = await api.put('/api/profile', {
                 name,
@@ -64,6 +71,7 @@ export const useAuthStore = defineStore('auth', {
             this.user = response.data
         },
 
+        // enregistrer un user
         async register(name, email) {
             const response = await api.post('/api/apikeys', {
                 name,
