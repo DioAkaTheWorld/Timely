@@ -6,6 +6,7 @@ export const useProjetStore = defineStore('projet', {
     state(){
         return {
             projets: [],
+            projetSuppr: [],
             projetSelect: null,
         }
     },
@@ -20,7 +21,8 @@ export const useProjetStore = defineStore('projet', {
                     }
                 })
 
-                this.projets = response.data.filter(projet => projet.is_enabled === 1);;
+                this.projets = response.data.filter(projet => projet.is_enabled === 1);
+                this.projetSuppr = response.data.filter(projet => projet.is_enabled !== 1);
             } catch (error) {
                 console.error('vous ne semblez pas avoir de projet pour le moment')
             }
@@ -40,7 +42,7 @@ export const useProjetStore = defineStore('projet', {
 
                 this.projets.push(response.data);
             }catch (error) {
-                console.error("error");
+                console.error("error"); 
             }
         },
 
@@ -53,7 +55,12 @@ export const useProjetStore = defineStore('projet', {
                         Authorization: `key=${auth.apikey}`
                     }
                 }) 
-                this.projets = this.projets.filter(projet => projet.id !== id);
+                const projet = this.projets.find(p => p.id === id);
+                if (projet) {
+                    projet.is_enabled = 0;
+                    this.projets = this.projets.filter(p => p.id !== id);
+                    this.projetSuppr.push(projet);
+                }
             } catch (error) {
                 console.error('probleme lors de la suppression', error)
             }
@@ -81,13 +88,17 @@ export const useProjetStore = defineStore('projet', {
             } catch (error) {
                 console.error('probleme lors de la modification', error)
             }
+        },
+
+        async recupererProjet(){
+
         }
     },
 
     persist: {
         enabled: true,
         strategies: [
-            {storage: localStorage, paths: ['projets'] }
+            {storage: localStorage, paths: ['projets', 'projetSuppr'] }
         ]
     } 
 

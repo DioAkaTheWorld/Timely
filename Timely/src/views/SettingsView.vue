@@ -16,6 +16,7 @@
     // projet
     const nameProjet = ref('');
     const description = ref('');
+    const projetAfficher = ref(true);
 
     // edit projet
     const projetEnEdition = ref(null);
@@ -35,7 +36,7 @@
     }
   
     async function updateProfile() {
-        if (!name.value || !email.value) {
+        if (!nameUser.value || !email.value) {
             alert('Nom et email obligatoires')
             return
         }
@@ -65,6 +66,14 @@
     async function sauvegarderModification(id) {
         await projets.modifierProjet(id, editName.value, editDescription.value);
         projetEnEdition.value = null;
+    }
+
+    function afficheProjet(){
+        projetAfficher.value = true;
+    }
+
+    function afficheSupprProjet(){
+        projetAfficher.value = false;
     }
  
 </script>
@@ -127,39 +136,50 @@
 
         <div class="projet">
             <h2>Mes Projets</h2>
+            <button @click="afficheProjet" class="btn">Projets Actuels</button>
+            <button @click="afficheSupprProjet" class="btn">Projets supprimer</button>
+            <div v-if="projetAfficher">
+                <div v-for="projet in projets.projets" :key="projet.id" class="project-card">
 
-            <div v-for="projet in projets.projets" :key="projet.id" class="project-card">
+                    <div v-if="projetEnEdition !== projet.id">
+                        <h2>{{ projet.name }}</h2>
+                        <p><strong>Description : </strong></p>{{ projet.description }} <br><br>
+                        <button @click="desactiver(projet.id)" class="btn btn-red">Supprimer</button>
+                        <button @click="modifier(projet)" class="btn btn-green">Modifier</button>
+                    </div>
 
-                <div v-if="projetEnEdition !== projet.id">
-                    <h2>{{ projet.name }}</h2>
-                    <p><strong>Description : </strong></p>{{ projet.description }} <br><br>
-                    <button @click="desactiver(projet.id)" class="btn btn-red">Supprimer</button>
-                    <button @click="modifier(projet)" class="btn btn-green">Modifier</button>
-                </div>
+                    <div v-else class="edit-card">
+                        <input
+                            type="text"
+                            v-model="editName"
+                            placeholder="Nom du projet"
+                            class="input"
+                        />
+                        <input
+                            type="text"
+                            v-model="editDescription"
+                            placeholder="Description"
+                            class="input"
+                        />
 
-                <div v-else class="edit-card">
-                    <input
-                        type="text"
-                        v-model="editName"
-                        placeholder="Nom du projet"
-                        class="input"
-                    />
-                    <input
-                        type="text"
-                        v-model="editDescription"
-                        placeholder="Description"
-                        class="input"
-                    />
+                        <button @click="sauvegarderModification(projet.id)" class="btn btn-green">
+                            Enregistrer
+                        </button>
+                        <button @click="projetEnEdition = null" class="btn btn-red">
+                            Annuler
+                        </button>
 
-                    <button @click="sauvegarderModification(projet.id)" class="btn btn-green">
-                        Enregistrer
-                    </button>
-                    <button @click="projetEnEdition = null" class="btn btn-red">
-                        Annuler
-                    </button>
-
+                    </div>
                 </div>
             </div>
+
+            <div v-if="!projetAfficher">
+                <div v-for="projet in projets.projetSuppr" :key="projet.id" class="project-card">
+                    <h2>{{ projet.name }}</h2>
+                    <p><strong>Description : </strong></p>{{ projet.description }} <br><br>
+                </div>
+            </div>
+
         </div>
     </div>
 </template>
