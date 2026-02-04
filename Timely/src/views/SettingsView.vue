@@ -56,8 +56,8 @@
         projets.recupererProjet(id);
     }
 
-    function creerProjet() {
-        projets.ajouterProjet(nameProjet.value, description.value);
+    async function creerProjet() {
+        await projets.ajouterProjet(nameProjet.value, description.value);
     }
 
     function modifier(projet) {
