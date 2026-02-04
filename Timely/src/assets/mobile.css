@@ -1,0 +1,129 @@
+/* ===== MOBILE (TELEPHONE) ===== */
+@media (max-width: 768px) {
+
+  /* ===== GLOBAL ===== */
+  body {
+    font-size: 14px;
+  }
+
+  /* ===== LOGIN ===== */
+  .login-container {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .login-title {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 360px;
+    padding: 20px;
+  }
+
+  .input,
+  .btn {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+    .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    height: 56px;
+    padding: 0 12px;
+
+    background-color: #d3d3d3;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    z-index: 1000;
+  }
+
+  .header .left {
+    gap: 8px;
+  }
+
+  .logo {
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .right {
+    gap: 8px;
+  }
+
+  /* Boutons du header */
+  .header .btn {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+
+  /* Evite que le contenu passe sous le header */
+  .home-container,
+  .settings-conatiner {
+    padding-top: 72px;
+  }
+  /* ===== HOME ===== */
+  .home-container {
+    padding-top: 80px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .home-title {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .home-card {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .project-card {
+    padding: 12px;
+  }
+
+  .project-card h2 {
+    font-size: 1.05rem;
+  }
+
+  .project-card p {
+    font-size: 0.9rem;
+  }
+
+  /* ===== SETTINGS ===== */
+  .settings-conatiner {
+    padding: 16px;
+    margin: 20px auto;
+  }
+
+  .profile,
+  .projet {
+    padding: 16px;
+  }
+
+  .profile p {
+    font-size: 0.95rem;
+  }
+
+  /* ===== EDIT ===== */
+  .edit-card {
+    padding: 14px;
+  }
+
+  /* ===== RETOUR ===== */
+  .retour {
+    margin-top: 80px;
+    margin-left: 8px;
+  }
+
+}
