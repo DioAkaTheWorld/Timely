@@ -6,9 +6,13 @@ export const useProjetStore = defineStore('projet', {
     state(){
         return {
             projets: [],
-            projetSuppr: [],
             projetSelect: null,
         }
+    },
+
+    getters: {
+        actifs: (state) => state.projets.filter(p => p.is_enabled === 1),
+        desactiver: (state) => state.projets.filter(p => p.is_enabled !== 1),
     },
 
     actions: {
@@ -20,15 +24,13 @@ export const useProjetStore = defineStore('projet', {
                         Authorization: `key=${auth.apikey}`
                     }
                 })
-
-                this.projets = response.data.filter(projet => projet.is_enabled === 1);
-                this.projetSuppr = response.data.filter(projet => projet.is_enabled !== 1);
+                this.projets = response.data;
             } catch (error) {
-                console.error('vous ne semblez pas avoir de projet pour le moment')
+                console.error('erreur lors du chargement des projets', error);
             }
         },
 
-        async ajouterProjet(name, description) {
+        async creerProjet(name, description) {
             const auth = useAuthStore();
             try {
                 const response = await api.post('/api/projects', {
@@ -38,9 +40,10 @@ export const useProjetStore = defineStore('projet', {
                     headers: {
                         Authorization: `key=${auth.apikey}`
                     }
-                })
-
-                this.projets.push(response.data);
+                });
+                const projet = response.data;
+                projet.is_enabled = 1; 
+                this.projets.push(projet);
             }catch (error) {
                 console.error("error"); 
             }
@@ -54,15 +57,26 @@ export const useProjetStore = defineStore('projet', {
                     headers: {
                         Authorization: `key=${auth.apikey}`
                     }
-                }) 
+                }); 
                 const projet = this.projets.find(p => p.id === id);
-                if (projet) {
-                    projet.is_enabled = 0;
-                    this.projets = this.projets.filter(p => p.id !== id);
-                    this.projetSuppr.push(projet);
-                }
+                if (projet) projet.is_enabled = 0;
             } catch (error) {
                 console.error('probleme lors de la suppression', error)
+            }
+        },
+
+        async reactiverProjet(id){
+            const auth = useAuthStore();
+            try {
+                const response = await api.patch(`/api/projects/${id}/enable`,{},{
+                    headers: {
+                        Authorization: `key=${auth.apikey}`
+                    }
+                });
+                const projet = this.projets.find(p => p.id === id);
+                if (projet) projet.is_enabled = 1; 
+            } catch (error) {
+               console.error('probleme pendant la reactivation du projet', error) 
             }
         },
 
@@ -90,25 +104,6 @@ export const useProjetStore = defineStore('projet', {
             }
         },
 
-        async recupererProjet(id){
-            const auth = useAuthStore();
-            try {
-                const response = await api.patch(`/api/projects/${id}/enable`,{},{
-                    headers: {
-                        Authorization: `key=${auth.apikey}`
-                    }
-                })
-                const projet = this.projetSuppr.find(p => p.id === id);
-                if (projet) {
-                    projet.is_enabled = 1;
-                    this.projetSuppr = this.projetSuppr.filter(p => p.id !== id);
-                    this.projets.push(projet);
-                }
-                
-            } catch (error) {
-               console.error('probleme pendant la reactivation du projet', error) 
-            }
-        }
     },
 
     persist: {
