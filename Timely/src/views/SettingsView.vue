@@ -52,6 +52,9 @@
     function desactiver(id){
         projets.desactiverProjet(id);
     }
+    function reactiverProjet(id){
+        projets.recupererProjet(id);
+    }
 
     function creerProjet() {
         projets.ajouterProjet(nameProjet.value, description.value);
@@ -177,6 +180,7 @@
                 <div v-for="projet in projets.projetSuppr" :key="projet.id" class="project-card">
                     <h2>{{ projet.name }}</h2>
                     <p><strong>Description : </strong></p>{{ projet.description }} <br><br>
+                    <button class="btn btn-green" @click="reactiverProjet(projet.id)">Réactiver</button>
                 </div>
             </div>
 

@@ -90,8 +90,24 @@ export const useProjetStore = defineStore('projet', {
             }
         },
 
-        async recupererProjet(){
-
+        async recupererProjet(id){
+            const auth = useAuthStore();
+            try {
+                const response = await api.patch(`/api/projects/${id}/enable`,{},{
+                    headers: {
+                        Authorization: `key=${auth.apikey}`
+                    }
+                })
+                const projet = this.projetSuppr.find(p => p.id === id);
+                if (projet) {
+                    projet.is_enabled = 1;
+                    this.projetSuppr = this.projetSuppr.filter(p => p.id !== id);
+                    this.projets.push(projet);
+                }
+                
+            } catch (error) {
+               console.error('probleme pendant la reactivation du projet', error) 
+            }
         }
     },
 
