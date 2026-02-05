@@ -1,9 +1,12 @@
 <script setup>
     import { useRouter } from 'vue-router'
     import { useAuthStore } from '@/stores/auth';
+    import { ref } from 'vue' 
 
     const auth = useAuthStore();
     const router = useRouter();
+
+    const menuOpen = ref(false)
 
     function logout() {
         auth.logout();
@@ -23,17 +26,36 @@
             <h1 class="title">Timely</h1>
         </div>
 
-        <div class="right">
-            <button class="btn" @click="goSettings">
-                Paramètres généraux
-            </button>
+        <button class="burger" @click="menuOpen = !menuOpen">
+        <span></span>
+        <span></span>
+        <span></span>
+        </button>
 
-            <div v-if="auth.user">
-                <button class="btn btn-red" @click="logout">
-                    Se déconnecter
-                </button>
-            </div>
-            
+        <div class="right desktop">
+        <button class="btn" @click="goSettings">
+            Paramètres généraux
+        </button>
+
+        <div v-if="auth.user">
+            <button class="btn btn-red" @click="logout">
+            Se déconnecter
+            </button>
+        </div>
+        </div>
+
+        <div class="mobile-menu" :class="{ open: menuOpen }">
+        <button class="btn" @click="goSettings">
+            Paramètres généraux
+        </button>
+
+        <button
+            v-if="auth.user"
+            class="btn btn-red"
+            @click="logout"
+        >
+            Se déconnecter
+        </button>
         </div>
     </header>
 </template>
