@@ -10,13 +10,6 @@ export const useAuthStore = defineStore('auth', {
         }
     },
 
-    getters: {
-        // getter user authentifié
-        isAuthenticated(state) {
-            return state.authenticated;
-        }
-    },
-
     actions: {
 
         // setter apikey

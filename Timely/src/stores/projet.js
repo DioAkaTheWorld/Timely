@@ -6,7 +6,6 @@ export const useProjetStore = defineStore('projet', {
     state(){
         return {
             projets: [],
-            projetSelect: null,
         }
     },
 
@@ -15,6 +14,8 @@ export const useProjetStore = defineStore('projet', {
         actifs: (state) => state.projets.filter(p => p.is_enabled === 1),
         // projets desactiver
         desactiver: (state) => state.projets.filter(p => p.is_enabled !== 1),
+        // get by id
+        getById: (state) => (id) => state.projets.find(a => a.id === id),
     },
 
     actions: {
@@ -65,7 +66,7 @@ export const useProjetStore = defineStore('projet', {
                     }
                 }); 
                 const projet = this.projets.find(p => p.id === id);
-                if (projet) projet.is_enabled = 0;
+                projet.is_enabled = 0;
             } catch (error) {
                 console.error('probleme lors de la suppression', error)
             }
@@ -81,7 +82,7 @@ export const useProjetStore = defineStore('projet', {
                     }
                 });
                 const projet = this.projets.find(p => p.id === id);
-                if (projet) projet.is_enabled = 1; 
+                projet.is_enabled = 1; 
             } catch (error) {
                console.error('probleme pendant la reactivation du projet', error) 
             }
