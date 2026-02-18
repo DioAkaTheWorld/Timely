@@ -11,9 +11,9 @@ export const useActiviteStore = defineStore('activite', {
 
     getters: {
         // activités actives
-        actifs: (state) => state.activites.filter(p => p.is_enabled === 1),
+        actifs: (state) => state.activites.filter(p => p.is_enabled == 1),
         // activités desactiver
-        desactiver: (state) => state.activites.filter(p => p.is_enabled !== 1),
+        desactiver: (state) => state.activites.filter(p => p.is_enabled != 1),
         // get by id
         getById: (state) => (id) => state.activites.find(a => a.id === id),
     },
@@ -24,7 +24,7 @@ export const useActiviteStore = defineStore('activite', {
         async loadActivite(){
             const auth = useAuthStore();
             try {
-                const response = await api.get('/api/activites',{
+                const response = await api.get('/api/activities',{
                     headers: {
                         Authorization: `key=${auth.apikey}`
                     }
@@ -39,7 +39,7 @@ export const useActiviteStore = defineStore('activite', {
         async creerActivite(name, color) {
             const auth = useAuthStore();
             try {
-                const response = await api.post('/api/activites', {
+                const response = await api.post('/api/activities', {
                     name,
                     color
                 },{
@@ -59,7 +59,7 @@ export const useActiviteStore = defineStore('activite', {
         async desactiverActivite(id){
             const auth = useAuthStore();
             try {
-                const response = await api.patch(`/api/activites/${id}/disable`, {}, {
+                const response = await api.patch(`/api/activities/${id}/disable`, {}, {
                     headers: {
                         Authorization: `key=${auth.apikey}`
                     }
@@ -75,7 +75,7 @@ export const useActiviteStore = defineStore('activite', {
         async reactiverActivite(id){
             const auth = useAuthStore();
             try {
-                const response = await api.patch(`/api/activites/${id}/enable`, {}, {
+                const response = await api.patch(`/api/activities/${id}/enable`, {}, {
                     headers: {
                         Authorization: `key=${auth.apikey}`
                     }
@@ -91,7 +91,7 @@ export const useActiviteStore = defineStore('activite', {
         async modifierActivite(id, name, color) {
             const auth = useAuthStore();
             try {
-                const response = await api.put(`/api/activites/${id}`, {
+                const response = await api.put(`/api/activities/${id}`, {
                     name,
                     color
                 },{

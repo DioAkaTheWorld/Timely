@@ -124,7 +124,7 @@ onUnmounted(() => {
           ⏱ {{ formatDuration(currentDuration) }}
         </div>
 
-        <button class="btn btn-red" @click="time.stop">
+        <button class="btn btn-red" @click="time.stopEntry(time.currentEntry.id)">
           STOP
         </button>
 

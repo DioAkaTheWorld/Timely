@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import SettingsView from '../views/SettingsView.vue'
+import ProjectView from '../views/ProjectView.vue'
+import ProfileView from '../views/ProfileView.vue'
+import ActivityView from '../views/ActivityView.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
@@ -23,8 +26,22 @@ const router = createRouter({
     },
     {
       path: '/settings',
-      name: '/settings', 
+      name: 'settings', 
       component: SettingsView,
+      children: [
+        {
+          path: 'profile',
+          component: ProfileView,
+        },
+        {
+          path: 'projects',
+          component: ProjectView,
+        },
+        {
+          path: 'activities',
+          component: ActivityView,
+        }
+      ]
     },
 
   ],

@@ -1,11 +1,20 @@
+/* ========================= */
 /* RESET MINIMAL */
+/* ========================= */
 * {
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* ===== LOGIN ===== */
+.app-content {
+  padding-top: 70px; /* même hauteur que ton header */
+}
 
+/* ========================= */
+/* LOGIN */
+/* ========================= */
 .login-container {
   min-height: 100vh;
   display: flex;
@@ -31,64 +40,118 @@
   gap: 12px;
 }
 
+/* ========================= */
+/* INPUTS */
+/* ========================= */
 .input {
   padding: 10px;
   font-size: 0.95rem;
-  border-radius: 4px;
+  border-radius: 6px;
   border: 1px solid #ccc;
+  transition: 0.2s;
 }
 
 .input:focus {
   outline: none;
   border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.15);
 }
 
-/* ===== BOUTONS ===== */
-
+/* ========================= */
+/* BOUTONS */
+/* ========================= */
 .btn {
-  padding: 10px;
+  padding: 10px 14px;
   font-size: 0.95rem;
   background: #42474d;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .btn:hover {
   background: #0a0c0e;
 }
 
-.btn-red{
+.btn-red {
   background-color: rgb(227, 30, 30);
 }
+
 .btn-red:hover {
   background-color: darkred;
 }
 
-.btn-green{
+.btn-green {
   background-color: rgb(5, 109, 5);
 }
+
 .btn-green:hover {
   background-color: rgb(5, 61, 5);
 }
 
-/* ===== ERREURS ===== */
-
+/* ========================= */
+/* ERREURS */
+/* ========================= */
 .error {
   color: #e74c3c;
   font-size: 0.9rem;
 }
 
-/* ===== HOME ===== */
+/* ========================= */
+/* HEADER */
+/* ========================= */
+.header {
+  position: fixed;
+  display: flex;
+  justify-content: space-between; /* logo à gauche, boutons à droite */
+  align-items: center;
+  background-color: #d3d3d3;
+  padding: 10px 20px;
+  width: 100%;
+  height: 70px;
+  box-sizing: border-box;
+  top: 0;
+  z-index: 100;
+}
 
+/* Logo + titre */
+.header .left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+  border-radius: 20%;
+}
+
+.header .title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Conteneur des boutons à droite */
+.header .right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ========================= */
+/* HOME */
+/* ========================= */
 .home-container {
   min-height: 100vh;
   background: #f5f6fa;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 60px;
+  padding-top: 100px;
 }
 
 .home-title {
@@ -97,38 +160,12 @@
 }
 
 .home-card {
-  background-color: #f9f9f9; 
+  background-color: #ffffff;
   padding: 20px;
-  border-radius: 12px;   
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  margin-bottom: 20px;  
-  width: 50%;        
-}
-
-.project-card {
-  background-color: #ffffff;  
-  border: 1px solid #e0e0e0;  
-  border-radius: 8px;          
-  padding: 15px;
-  margin-bottom: 15px;   
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.project-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-}
-
-.project-card h2 {
-  margin: 0 0 10px 0;
-  font-size: 1.2rem;
-  color: #333;
-}
-
-.project-card p {
-  margin: 0;
-  color: #555;
-  font-size: 0.95rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+  width: 50%;
 }
 
 .home-user {
@@ -140,92 +177,156 @@
   color: #666;
 }
 
-/* settings */
+/* ========================= */
+/* PROJECT CARD */
+/* ========================= */
+.project-card {
+  background-color: #ffffff;
+  border: 1px solid #e4e4e4;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 18px;
+  transition: all 0.2s ease;
+}
 
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.project-card h2 {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.project-card p {
+  margin-bottom: 12px;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* ========================= */
+/* SETTINGS */
+/* ========================= */
 .settings-conatiner {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 24px;
-  font-family: Arial, sans-serif;
+  max-width: 1000px;
+  margin: 110px auto 60px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
 
 .settings-conatiner h1 {
-  margin-bottom: 24px;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  text-align: center;
 }
 
+/* Sections */
 .profile,
 .projet {
-  background: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 24px;
+  background: #f7f8fa;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  border: 1px solid #e6e6e6;
 }
 
 .profile h2,
 .projet h2 {
-  margin-bottom: 16px;
+  margin-bottom: 18px;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 8px;
 }
 
+/* Bloc user */
 .profile p {
-  background: #fff;
-  padding: 12px;
-  border-radius: 6px;
-  margin-bottom: 16px;
-  line-height: 1.5;
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  border: 1px solid #eee;
 }
 
-.profile input {
+/* Inputs settings */
+.profile input,
+.projet input {
   width: 100%;
-  padding: 8px 10px;
-  margin: 6px 0 12px 0;
+  padding: 10px 12px;
+  margin: 8px 0 15px 0;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
+  transition: 0.2s;
 }
 
-.header {
-  position: fixed;
-  display: flex;
-  justify-content: space-between; 
-  align-items: center;    
-  background-color: #d3d3d3;  
-  padding: 10px 20px;        
-  width: 100%;
-  height: 70px;
-  box-sizing: border-box;
+.profile input:focus,
+.projet input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.15);
 }
 
-.header .left {
-  display: flex;
-  align-items: center;
-  gap: 5px; 
+/* Boutons settings */
+.settings-conatiner .btn {
+  margin-right: 10px;
+  margin-top: 5px;
 }
 
-.logo {
-  height: 60px; 
-  width: auto;
-  border-radius: 20%;
-}
-
-.right {
-  display: flex;
-  align-items: center;
-  gap: 10px; 
-}
-
-.retour{
-  margin-top: 90px;
-  margin-left: 10px;
-}
-
+/* Edit card */
 .edit-card {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-
-    padding: 16px;
-    margin-top: 10px;
-    border-radius: 10px;
-
-    box-shadow: 0 4px 10px rgba(177, 172, 172, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  margin-top: 10px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
 }
 
+/* Bouton retour */
+.retour {
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  z-index: 10;
+}
+
+/* ===== MENU SETTINGS ===== */
+.settings-menu {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.settings-menu .btn {
+  padding: 10px 20px;
+  border-radius: 30px;
+  background-color: #e9ecef;
+  color: #333;
+  font-weight: 500;
+  border: 1px solid #ddd;
+  transition: all 0.2s ease;
+}
+
+.settings-menu .btn:hover {
+  background-color: #4a90e2;
+  color: white;
+  border-color: #4a90e2;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(74, 144, 226, 0.3);
+}
+
+/* bouton actif */
+.settings-menu .btn-active {
+  background-color: #4a90e2;
+  color: white;
+  border-color: #4a90e2;
+  box-shadow: 0 5px 12px rgba(74, 144, 226, 0.3);
+}
