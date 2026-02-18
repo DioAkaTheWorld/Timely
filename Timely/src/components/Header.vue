@@ -30,14 +30,6 @@
             <h1 class="title">Timely</h1>
         </div>
 
-        <!-- Burger visible uniquement sur mobile -->
-        <button class="burger" @click="menuOpen = !menuOpen">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
         <!-- Conteneur unique pour les boutons à droite -->
         <div class="right desktop">
             <button class="btn" @click="goMenu">Menu</button>
@@ -45,12 +37,6 @@
             <button v-if="auth.user" class="btn btn-red" @click="logout">Se déconnecter</button>
         </div>
 
-        <!-- Menu mobile -->
-        <div class="mobile-menu" :class="{ open: menuOpen }">
-            <button class="btn" @click="goMenu">Menu</button>
-            <button class="btn" @click="goSettings">Paramètres généraux</button>
-            <button v-if="auth.user" class="btn btn-red" @click="logout">Se déconnecter</button>
-        </div>
     </header>
 
 </template>
