@@ -22,6 +22,17 @@ const projets = ref([]);
 const activites = ref([]);
 const stats = ref([]);
 
+
+onMounted(loadData);
+const entriesWithNames = computed(() => {
+  return stats.value.map(e => ({
+    ...e,
+    projectName: getProjectName(e.project_id),
+    activityName: getActivityName(e.activity_id),
+    duration: formatTime((new Date(e.end) - new Date(e.start)) / 1000)
+  }));
+});
+
 // get nom projet
 function getProjectName(projectId) {
   return projets.value.find(p => p.id === projectId)?.name || 'Projet inconnu';
