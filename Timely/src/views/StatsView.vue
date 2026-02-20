@@ -68,6 +68,70 @@ async function loadData() {
   drawCharts();
 }
 
+// graphique
+function drawCharts() {
+  if (projectChartInstance) projectChartInstance.destroy();
+  if (activityChartInstance) activityChartInstance.destroy();
+
+  const projectLabels = stats.value.map(e => getProjectName(e.project_id));
+  const projectData = stats.value.map(e => {
+    const start = new Date(e.start);
+    const end = new Date(e.end);
+    return (end - start) / 60;
+  });
+
+  if (projectChartRef.value) {
+    projectChartInstance = new Chart(projectChartRef.value, {
+      type: 'bar',
+      data: {
+        labels: projectLabels,
+        datasets: [{
+          label: 'Temps passé (minutes)',
+          data: projectData,
+          backgroundColor: 'rgba(54, 162, 235, 0.6)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+  }
+
+  const activityLabels = stats.value.map(e => getActivityName(e.activity_id));
+  const activityData = stats.value.map(e => {
+    const start = new Date(e.start);
+    const end = new Date(e.end);
+    return (end - start) / 60; // minutes
+  });
+
+  if (activityChartRef.value) {
+    activityChartInstance = new Chart(activityChartRef.value, {
+      type: 'pie',
+      data: {
+        labels: activityLabels,
+        datasets: [{
+          label: 'Temps passé (minutes)',
+          data: activityData,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(153, 102, 255, 0.6)'
+          ],
+          borderColor: 'rgba(255, 255, 255, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+  }
+}
+
 </script>
 
 
@@ -93,5 +157,12 @@ async function loadData() {
       </tbody>
     </table>
 
+    <div class="charts-section">
+      <h2>Statistiques par projet</h2>
+      <canvas ref="projectChartRef"></canvas>
+
+      <h2>Statistiques par activité</h2>
+      <canvas ref="activityChartRef"></canvas>
+    </div>
   </div>
 </template>
