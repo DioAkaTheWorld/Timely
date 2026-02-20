@@ -54,4 +54,25 @@ export const useStatsStore = defineStore('stats', {
       return [...state.entries].sort((a, b) => new Date(a.start) - new Date(b.start));
     }
   },
+  actions: {
+    async loadStats(from, to) {
+      const auth = useAuthStore()
+      if (!from || !to) return;
+      this.loading = true;
+      this.from = from;
+      this.to = to;
+
+      try {
+        const response = await api.get(`/api/time-entries?from=${from}&to=${to}`, {
+          headers: {
+            Authorization: `key=${auth.apikey}`
+          }
+        });
+        this.entries = response.data;
+      } catch (error) {
+        console.error('Erreur loadStats', error);
+      }
+      this.loading = false;
+    }
+  }
 })
