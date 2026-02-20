@@ -34,5 +34,19 @@ export const useStatsStore = defineStore('stats', {
       });
       return result;
     },
+
+    // total par activite
+    byActivity: (state) => {
+      const result = {};
+      state.entries.forEach(entry => {
+        if (!entry.start || !entry.end) return;
+        const start = new Date(entry.start);
+        const end = new Date(entry.end);
+        const diff = (end - start) / 1000;
+        if (!result[entry.activity_id]) result[entry.activity_id] = 0;
+        result[entry.activity_id] += diff;
+      });
+      return result;
+    },
   },
 })
