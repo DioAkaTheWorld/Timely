@@ -15,6 +15,10 @@
     const daily = useDailyObjectivesStore()
     const menuOpen = ref(false)
 
+    // timer pour activité en cours
+    const now = ref(Date.now())
+    let interval = null
+
     function logout() {
         auth.logout();
         router.push('/login');
@@ -28,6 +32,10 @@
         router.push('/home');
     }
 
+    function goStats() {
+      router.push('/stats')
+    }
+
 </script>
 
 <template>
@@ -37,9 +45,9 @@
             <h1 class="title">Timely</h1>
         </div>
 
-        <!-- Conteneur unique pour les boutons à droite -->
         <div class="right desktop">
             <button class="btn" @click="goMenu">Menu</button>
+            <button class="btn" @click="goStats">Stats</button>
             <button class="btn" @click="goSettings">Paramètres généraux</button>
             <button v-if="auth.user" class="btn btn-red" @click="logout">Se déconnecter</button>
         </div>
