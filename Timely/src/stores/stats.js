@@ -48,5 +48,10 @@ export const useStatsStore = defineStore('stats', {
       });
       return result;
     },
+
+    // Liste chronologique
+    sortedEntries: (state) => {
+      return [...state.entries].sort((a, b) => new Date(a.start) - new Date(b.start));
+    }
   },
 })
