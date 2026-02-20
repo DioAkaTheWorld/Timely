@@ -7,9 +7,12 @@
     import { useActiviteStore } from '@/stores/activite'
     import { useDailyObjectivesStore } from '@/stores/dailyObjectives'
 
-    const auth = useAuthStore();
-    const router = useRouter();
-
+    const router = useRouter()
+    const auth = useAuthStore()
+    const time = useTimeEntriesStore()
+    const projets = useProjetStore()
+    const activites = useActiviteStore()
+    const daily = useDailyObjectivesStore()
     const menuOpen = ref(false)
 
     function logout() {
