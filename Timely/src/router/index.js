@@ -26,7 +26,7 @@ const router = createRouter({
     },
     {
       path: '/settings',
-      name: 'settings', 
+      name: 'settings',
       component: SettingsView,
       children: [
         {
@@ -43,7 +43,10 @@ const router = createRouter({
         }
       ]
     },
-
+    {
+      path: '/stats',
+      component: StatsView,
+    }
   ],
 })
 
