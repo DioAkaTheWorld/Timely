@@ -1,7 +1,11 @@
 <script setup>
+    import { ref, computed, onMounted, onUnmounted } from 'vue'
     import { useRouter } from 'vue-router'
-    import { useAuthStore } from '@/stores/auth';
-    import { ref } from 'vue' 
+    import { useAuthStore } from '@/stores/auth'
+    import { useTimeEntriesStore } from '@/stores/timeEntries'
+    import { useProjetStore } from '@/stores/projet'
+    import { useActiviteStore } from '@/stores/activite'
+    import { useDailyObjectivesStore } from '@/stores/dailyObjectives'
 
     const auth = useAuthStore();
     const router = useRouter();
