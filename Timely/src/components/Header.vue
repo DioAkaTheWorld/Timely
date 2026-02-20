@@ -85,19 +85,29 @@
 </script>
 
 <template>
-    <header class="header">
-        <div class="left">
-            <img src="../../logo.png" alt="logo" class="logo">
-            <h1 class="title">Timely</h1>
-        </div>
+  <header class="header">
+    <div class="left">
+      <img src="../../logo.png" alt="logo" class="logo">
+      <h1 class="title">Timely</h1>
+    </div>
 
-        <div class="right desktop">
-            <button class="btn" @click="goMenu">Menu</button>
-            <button class="btn" @click="goStats">Stats</button>
-            <button class="btn" @click="goSettings">Paramètres généraux</button>
-            <button v-if="auth.user" class="btn btn-red" @click="logout">Se déconnecter</button>
-        </div>
+    <div class="right desktop">
+      <div v-if="time.currentEntry" class="active-info">
+            <span>
+            {{ projets.getById(time.currentEntry.project_id)?.name || 'Projet inconnu' }} -
+            {{ activites.getById(time.currentEntry.activity_id)?.name || 'Activité inconnue' }}
+            </span>
+        <button class="btn btn-red" @click="time.stopEntry(time.currentEntry.id)">STOP</button>
+      </div>
 
-    </header>
-
+      <div class="quick-stats">
+        <span>Total aujourd’hui : {{ totalToday }}</span>
+        <span>Objectifs : {{ objectivesToday }}</span>
+      </div>
+      <button class="btn" @click="goMenu">Menu</button>
+      <button class="btn" @click="goStats">Stats</button>
+      <button class="btn" @click="goSettings">Paramètres généraux</button>
+      <button v-if="auth.user" class="btn btn-red" @click="logout">Se déconnecter</button>
+    </div>
+  </header>
 </template>
