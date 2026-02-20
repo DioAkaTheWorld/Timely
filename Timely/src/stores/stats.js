@@ -20,5 +20,19 @@ export const useStatsStore = defineStore('stats', {
         return total + (end - start) / 1000
       }, 0)
     },
+
+    // total par projet
+    byProject: (state) => {
+      const result = {};
+      state.entries.forEach(entry => {
+        if (!entry.start || !entry.end) return;
+        const start = new Date(entry.start);
+        const end = new Date(entry.end);
+        const diff = (end - start) / 1000;
+        if (!result[entry.project_id]) result[entry.project_id] = 0;
+        result[entry.project_id] += diff;
+      });
+      return result;
+    },
   },
 })
