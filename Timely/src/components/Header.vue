@@ -65,6 +65,23 @@
       return formatTime(total)
     })
 
+    // objectifs atteints / total
+    const objectivesToday = computed(() => {
+      const total = daily.todayObjectives.length
+      const done = daily.todayObjectives.filter(o => o.done).length
+      return `${done}/${total}`
+    })
+
+    onMounted(async () => {
+      await projets.loadProject()
+      await activites.loadActivite()
+      await time.loadTodayEntries()
+      await daily.loadTodayObjectives()
+
+      interval = setInterval(() => { now.value = Date.now() }, 1000)
+    })
+
+    onUnmounted(() => { clearInterval(interval) })
 </script>
 
 <template>
