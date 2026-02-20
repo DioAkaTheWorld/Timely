@@ -32,6 +32,31 @@ function getActivityName(activityId) {
   return activites.value.find(a => a.id === activityId)?.name || 'Activité inconnue';
 }
 
+// temps total
+function formatTime(seconds) {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  return `${h}h ${m}m`;
+}
+
+async function loadData() {
+  await projetStore.loadProject();
+  projets.value = projetStore.projets;
+
+  await activiteStore.loadActivite();
+  activites.value = activiteStore.activites;
+
+  const from = new Date();
+  from.setDate(from.getDate() - 30);
+  const to = new Date();
+
+  await statsStore.loadStats(from.toISOString().split('T')[0], to.toISOString().split('T')[0]);
+  stats.value = statsStore.entries;
+
+  await nextTick();
+  drawCharts();
+}
+
 </script>
 
 
