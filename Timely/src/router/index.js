@@ -5,6 +5,7 @@ import SettingsView from '../views/SettingsView.vue'
 import ProjectView from '../views/ProjectView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import ActivityView from '../views/ActivityView.vue'
+import StatsView from '../views/StatsView.vue'
 import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
